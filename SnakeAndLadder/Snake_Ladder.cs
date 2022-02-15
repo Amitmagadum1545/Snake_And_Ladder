@@ -10,15 +10,16 @@ namespace SnakeAndLadder
     {
         public static void Winning_position_is100()
         {
-            int position = 0;
+            int position = 0, dieCount = 0;
             const int NOPLAY = 0, LADDER = 1, SNAKE = 2;
             Random random = new Random();
             
             Console.WriteLine($"Initial Position Of Player is {position}");
             
-            while (position != 100)
+            while (position < 100)
             {
                 int noOnDie = random.Next(1, 7);
+                dieCount++;
                 int option = random.Next(3);
                 Console.WriteLine($"Number On Die Is {noOnDie}");
                 switch (option)
@@ -37,8 +38,15 @@ namespace SnakeAndLadder
                 {
                     position = 0;
                 }
+                else if (position > 100)
+                {
+                    position -= noOnDie;
+                    Console.WriteLine("position" + position);
+                }
                 Console.WriteLine($"Position Of Player After Die Roll is {position}");
+                
             }
+            Console.WriteLine($"Total Number Of Times Die Rolled To Win The Game Is {dieCount}");
         }
     }
 }
