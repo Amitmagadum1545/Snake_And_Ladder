@@ -8,28 +8,37 @@ namespace SnakeAndLadder
 {
     internal class Snake_Ladder
     {
-        public static void Die_Roll()
+        public static void Winning_position_is100()
         {
             int position = 0;
             const int NOPLAY = 0, LADDER = 1, SNAKE = 2;
             Random random = new Random();
-            int noOnDie=random.Next(1,7);
-            int option=random.Next(3);
+            
             Console.WriteLine($"Initial Position Of Player is {position}");
-            Console.WriteLine($"Number On Die Is {noOnDie}");
-            switch (option)
+            
+            while (position < 100)
             {
-                case NOPLAY :
-                    Console.WriteLine("POSITION " + position);
-                    break;
-                case LADDER:
-                    position = position + noOnDie;
-                    break;
-                case SNAKE:
-                    position = position - noOnDie;
-                    break;
+                int noOnDie = random.Next(1, 7);
+                int option = random.Next(3);
+                Console.WriteLine($"Number On Die Is {noOnDie}");
+                switch (option)
+                {
+                    case NOPLAY:
+                        Console.WriteLine("No Play And POSITION is " + position);
+                        break;
+                    case LADDER:
+                        Console.WriteLine($"It is Ladder And Position is {position = position + noOnDie} ");
+                        break;
+                    case SNAKE:
+                        Console.WriteLine($"It is Snake And Position is { position = position - noOnDie} ");
+                        break;
+                }
+                if (position<0)
+                {
+                    position = 0;
+                }
+                Console.WriteLine($"Position Of Player After Die Roll is {position}");
             }
-            Console.WriteLine($"Position Of Player After Die Roll is {position}");
         }
     }
 }

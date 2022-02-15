@@ -11,7 +11,7 @@ namespace SnakeAndLadder
         static void Main()
         {
             Console.WriteLine("Welcome To Snake And Ladder Simulator");
-            Snake_Ladder.Die_Roll();
+            Snake_Ladder.Winning_position_is100();
             Console.ReadLine();
         }
     }
