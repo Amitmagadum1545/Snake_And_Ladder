@@ -16,7 +16,7 @@ namespace SnakeAndLadder
             
             Console.WriteLine($"Initial Position Of Player is {position}");
             
-            while (position < 100)
+            while (position != 100)
             {
                 int noOnDie = random.Next(1, 7);
                 int option = random.Next(3);
