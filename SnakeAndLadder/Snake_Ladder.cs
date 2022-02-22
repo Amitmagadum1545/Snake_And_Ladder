@@ -1,52 +1,71 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SnakeAndLadder
 {
     internal class Snake_Ladder
     {
-        public static void Winning_position_is100()
+        public const int NOPLAY = 0, LADDER = 1, SNAKE = 2, WINNINGPOSITION = 100;
+
+        public static int noOnDie, player=1;
+
+        public static int[] position = new int[3] { 0, 0, 0 };
+        public static int[] playerdieCount = new int[3] { 0, 0, 0 };
+
+
+        public static Random random = new Random();
+
+        public static void PlaySnakeAndLadder(int playerNum)
         {
-            int position = 0, dieCount = 0;
-            const int NOPLAY = 0, LADDER = 1, SNAKE = 2;
-            Random random = new Random();
-            
-            Console.WriteLine($"Initial Position Of Player is {position}");
-            
-            while (position < 100)
+            noOnDie = random.Next(1, 7);
+            int option = random.Next(3);
+            Console.WriteLine("\nPlayer {0} get ts Dice value: {1}", playerNum, noOnDie);
+            playerdieCount[playerNum]++;
+            switch (option)
             {
-                int noOnDie = random.Next(1, 7);
-                dieCount++;
-                int option = random.Next(3);
-                Console.WriteLine($"Number On Die Is {noOnDie}");
-                switch (option)
-                {
-                    case NOPLAY:
-                        Console.WriteLine("No Play And POSITION is " + position);
+                case NOPLAY:
+                    Console.WriteLine("No Play And POSITION is " + position[playerNum]);
+                    break;
+                case LADDER:
+                    position[playerNum] += noOnDie;
+                    if (position[playerNum] > 100)
+                    {
+                        position[playerNum] -= noOnDie;
+                    }
+                    Console.WriteLine($"It is Ladder And Position is {position[playerNum]} ");
+                    if (position[playerNum] == WINNINGPOSITION)
+                    {
+                        Console.WriteLine("Player {0} won the game with dice count of :{1}", playerNum, playerdieCount[playerNum]);
                         break;
-                    case LADDER:
-                        Console.WriteLine($"It is Ladder And Position is {position = position + noOnDie} ");
-                        break;
-                    case SNAKE:
-                        Console.WriteLine($"It is Snake And Position is { position = position - noOnDie} ");
-                        break;
-                }
-                if (position<0)
-                {
-                    position = 0;
-                }
-                else if (position > 100)
-                {
-                    position -= noOnDie;
-                    Console.WriteLine("position" + position);
-                }
-                Console.WriteLine($"Position Of Player After Die Roll is {position}");
-                
+                    }
+                    PlaySnakeAndLadder(playerNum);
+                    break;
+                case SNAKE:
+                    position[playerNum] -= noOnDie;
+                    if (position[playerNum] < 0)
+                    {
+                        position[playerNum] = 0;
+                    }
+                    Console.WriteLine($"It is Snake And Position is { position[playerNum]} ");
+                    break;
             }
-            Console.WriteLine($"Total Number Of Times Die Rolled To Win The Game Is {dieCount}");
+        }
+        public static void SwitchPlayer()
+        {
+            while (position[1] < WINNINGPOSITION && position[2] < WINNINGPOSITION)
+            {
+                if (player == 1)
+                {
+                    PlaySnakeAndLadder(1);
+                    player = 2;
+                    continue;
+                }
+                if(player==2)
+                {
+                    PlaySnakeAndLadder(2);
+                    player = 1;
+                    continue;                
+                }
+            }
         }
     }
 }

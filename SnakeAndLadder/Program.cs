@@ -11,7 +11,11 @@ namespace SnakeAndLadder
         static void Main()
         {
             Console.WriteLine("Welcome To Snake And Ladder Simulator");
-            Snake_Ladder.Winning_position_is100();
+
+            Console.WriteLine($"Initial Position Of Player1 And Player2 is : 0 0");
+            
+            Snake_Ladder.SwitchPlayer();
+            
             Console.ReadLine();
         }
     }
